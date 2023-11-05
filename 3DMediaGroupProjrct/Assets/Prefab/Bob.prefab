@@ -177,7 +177,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00009171f370294a8684f7a838256a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
   speed: 6
+  gravity: -9.81
+  jumpStrenght: 2
+  groundCheck: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1235154758471316296
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +439,6 @@ GameObject:
   - component: {fileID: 5899574011459794798}
   - component: {fileID: 5723452073696055992}
   - component: {fileID: 1706722753410461265}
-  - component: {fileID: 1593489891786199924}
   m_Layer: 0
   m_Name: Player Body
   m_TagString: Untagged
@@ -507,26 +513,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1593489891786199924
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921752282286677294}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

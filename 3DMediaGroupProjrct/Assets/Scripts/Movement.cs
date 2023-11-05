@@ -11,6 +11,16 @@ public class Movement : MonoBehaviour
     float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     // Start is called before the first frame update
+
+    Vector3 velocity;
+    public float gravity = -9.81f;
+    [Range(0f, 20f)]
+    public float jumpStrenght = 2f;
+    public Transform groundCheck;
+    float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    bool isGrounded;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -20,9 +30,25 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal,0, vertical).normalized;//.normilise -- this doesnt allow the player to go double speed
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        Debug.Log(isGrounded);
+
+        if (isGrounded)
+        {
+            velocity.y = -2; // This line should remain as it is.
+        }
+        else
+        {
+            velocity.y += gravity * Time.deltaTime; // Apply gravity when not grounded.
+        }
+
+        float movementX = Input.GetAxisRaw("Horizontal");
+        
+        float movementZ = Input.GetAxisRaw("Vertical");
+
+       
+       
+        Vector3 direction = new Vector3(movementX,0, movementZ).normalized;//.normilise -- this doesnt allow the player to go double speed
         //when 2 keys are pressed together
 
         if(direction.magnitude >= 0.1f)
@@ -37,6 +63,15 @@ public class Movement : MonoBehaviour
 
             Vector3 movedirection = Quaternion.Euler(0f,targetAngle,0f)*Vector3.forward;
             controller.Move(movedirection.normalized*speed*Time.deltaTime);
+
+
+            //jump
         }
+            if (Input.GetButtonDown("Jump")&&isGrounded)
+            {
+                Debug.Log("Jump");
+                velocity.y = Mathf.Sqrt(jumpStrenght * -2f * gravity);
+            }
+            controller.Move(velocity*Time.deltaTime);
     }
 }
