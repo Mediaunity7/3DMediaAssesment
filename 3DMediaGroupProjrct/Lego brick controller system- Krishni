@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MouseInput : MonoBehaviour
+{
+
+public float speed = 50.0;
+
+	void Update()
+	{
+
+	}
+	void OnMouseDrag()
+	{
+		
+        float transX = Input.GetAxis("Mouse X") * speed;
+        float transZ= Input.GetAxis("Mouse Y") * speed;
+
+        transX *= TimeDeltaTime;
+        transZ *= TimeDeltaTime;
+
+        transform.translate(transX, 0, transZ);
+
+		float distance_to_screen = Camera.main.WorldToScreenPoint(gameObject.transform.position).Z;
+
+        Vector3 pos_move = Camera.main.WorldToScreenPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y, distance_to_screen));
+
+        transform.position = new Vector3(pos_move.x, transform.position.y, pos_move.z);
+}
+ 
